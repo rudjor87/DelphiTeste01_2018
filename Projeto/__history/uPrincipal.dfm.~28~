@@ -1,0 +1,202 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  BorderIcons = [biSystemMenu, biMinimize]
+  Caption = 'Estoque'
+  ClientHeight = 371
+  ClientWidth = 787
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = MainMenu1
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnCreate = FormCreate
+  DesignSize = (
+    787
+    371)
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lblCadProdPrincipal: TLabel
+    Left = 8
+    Top = 146
+    Width = 107
+    Height = 13
+    Caption = 'Produtos Cadastrados'
+  end
+  object lblInformacoes: TLabel
+    Left = 417
+    Top = 8
+    Width = 60
+    Height = 13
+    Anchors = [akTop, akRight]
+    Caption = 'Informa'#231#245'es'
+    ExplicitLeft = 384
+  end
+  object Memo1: TMemo
+    Left = 417
+    Top = 27
+    Width = 362
+    Height = 113
+    TabStop = False
+    Anchors = [akTop, akRight]
+    Color = clBtnFace
+    ReadOnly = True
+    TabOrder = 0
+  end
+  object dbGrdCadProdPrincipal: TDBGrid
+    Left = 0
+    Top = 165
+    Width = 787
+    Height = 150
+    Align = alBottom
+    Anchors = [akLeft, akTop, akRight, akBottom]
+    DataSource = dsProduto
+    Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgRowSelect, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
+    TabOrder = 1
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+    OnDblClick = dbGrdCadProdPrincipalDblClick
+    Columns = <
+      item
+        Expanded = False
+        FieldName = 'PROD_CODIGO'
+        Title.Caption = 'C'#243'digo'
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PROD_NOME'
+        Title.Caption = 'Produto'
+        Width = 450
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PROD_MOEDA_DESCRICAO'
+        Title.Caption = 'Moeda'
+        Width = 98
+        Visible = True
+      end
+      item
+        Expanded = False
+        FieldName = 'PROD_VALOR'
+        Title.Caption = 'Valor'
+        Width = 128
+        Visible = True
+      end>
+  end
+  object pnlComandos: TPanel
+    Left = 0
+    Top = 315
+    Width = 787
+    Height = 56
+    Align = alBottom
+    TabOrder = 2
+    ExplicitTop = 302
+    DesignSize = (
+      787
+      56)
+    object spdBtnFechar: TSpeedButton
+      Left = 730
+      Top = 0
+      Width = 57
+      Height = 57
+      Anchors = [akTop, akRight, akBottom]
+      Caption = 'Fechar'
+      OnClick = spdBtnFecharClick
+      ExplicitLeft = 664
+    end
+  end
+  object grbAtalhos: TGroupBox
+    Left = 226
+    Top = 8
+    Width = 185
+    Height = 132
+    Caption = 'Atalhos'
+    TabOrder = 3
+    object SpeedButton1: TSpeedButton
+      Left = 16
+      Top = 19
+      Width = 161
+      Height = 22
+      Caption = 'Novo Produto'
+      OnClick = SpeedButton1Click
+    end
+  end
+  object Conexao: TZConnection
+    ControlsCodePage = cCP_UTF16
+    Catalog = ''
+    Connected = True
+    HostName = 'localhost'
+    Port = 0
+    Database = 'C:\Desenvolvimento\Estoque\Base de Dados\ESTOQUE.FDB'
+    User = 'SYSDBA'
+    Password = 'masterkey'
+    Protocol = 'firebird-2.5'
+    Left = 736
+    Top = 40
+  end
+  object qProduto: TZQuery
+    Connection = Conexao
+    SQL.Strings = (
+      'SELECT'
+      '  PROD_CODIGO,'
+      '  PROD_NOME,'
+      '  DECODE(PROD_MOEDA, 1, '#39'Reias (R$)'#39') AS "PROD_MOEDA_DESCRICAO",'
+      '  PROD_VALOR'
+      'FROM'
+      '  PRODUTO'
+      'ORDER BY'
+      '  PROD_CODIGO')
+    Params = <>
+    Left = 712
+    Top = 208
+    object qProdutoPROD_CODIGO: TIntegerField
+      FieldName = 'PROD_CODIGO'
+      Required = True
+    end
+    object qProdutoPROD_NOME: TWideStringField
+      FieldName = 'PROD_NOME'
+      Size = 30
+    end
+    object qProdutoPROD_MOEDA_DESCRICAO: TWideStringField
+      FieldName = 'PROD_MOEDA_DESCRICAO'
+      ReadOnly = True
+      Size = 10
+    end
+    object qProdutoPROD_VALOR: TFloatField
+      FieldName = 'PROD_VALOR'
+      currency = True
+    end
+  end
+  object MainMenu1: TMainMenu
+    Left = 16
+    Top = 8
+    object Cadastro1: TMenuItem
+      Caption = 'Cadastro'
+      object Produto1: TMenuItem
+        Caption = 'Produto'
+        OnClick = Produto1Click
+      end
+    end
+  end
+  object dsProduto: TDataSource
+    AutoEdit = False
+    DataSet = qProduto
+    Left = 712
+    Top = 256
+  end
+  object ZQuery1: TZQuery
+    Connection = Conexao
+    Params = <>
+    Left = 736
+    Top = 88
+  end
+end

@@ -1,0 +1,31 @@
+unit uFuncoesTela;
+
+interface
+
+uses
+  System.Classes, vcl.StdCtrls, Vcl.Graphics;
+
+procedure SetHabilitaComponente(cptObjeto :TComponent; blnHabilita: Boolean);
+
+implementation
+
+procedure SetHabilitaComponente(cptObjeto :TComponent; blnHabilita: Boolean);
+begin
+  if cptObjeto is TEdit then
+  begin
+    if blnHabilita then
+    begin
+      (cptObjeto as TEdit).ReadOnly := False;
+      (cptObjeto as TEdit).TabStop := True;
+      (cptObjeto as TEdit).Color := clWindow;
+    end
+    else
+    begin
+      (cptObjeto as TEdit).ReadOnly := True;
+      (cptObjeto as TEdit).TabStop := False;
+      (cptObjeto as TEdit).Color := clBtnFace;
+    end;
+  end;
+end;
+
+end.
