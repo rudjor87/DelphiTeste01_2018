@@ -83,7 +83,7 @@ procedure TfrmPrincipal.FormCreate(Sender: TObject);
 var
   cCaminho_e_Base: string;
 begin
-  cCaminho_e_Base := 'C:\Desenvolvimento\DelphiTeste01_2018\Base de Dados\Estoque.fdb';
+  cCaminho_e_Base := Copy(ExtractFileDir(Application.ExeName), 1, LastDelimiter('\', ExtractFileDir(Application.ExeName))) + '\Base de Dados\Estoque.fdb';
 
   Memo1.Lines.Clear;
 
